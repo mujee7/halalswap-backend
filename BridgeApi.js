@@ -42,6 +42,7 @@ async function Bridge(){
 
 contractMum.events.Transfer({}, 'latest')
 .on("data", async(event)=>{
+  try{
     console.log("Called Successfully")
     const { from, to,token, amount, nonce, signature } = event.returnValues;
     console.log(from,"ok", to,"ok",token,"ok", amount,"ok", nonce, "ok",signature )
@@ -57,16 +58,22 @@ contractMum.events.Transfer({}, 'latest')
     };
     const receipt = await web3Bsc.eth.sendTransaction(txData);
     console.log("successfully bridged")
+  }
+  catch(err){
+    console.log(err)
+  }
     
 })
 .on("connected", function(subscriptionId){
-    console.log("connected bitch1");
+    console.log("connected 1");
+    
 });
 
 
 
 contractBsc.events.Transfer({}, 'latest')
 .on("data", async(event)=>{
+  try{
   console.log("Called Successfully")
   const { from, to,token, amount, nonce, signature } = event.returnValues;
   console.log(from,"ok", to,"ok",token,"ok", amount,"ok", nonce, "ok",signature )
@@ -84,14 +91,19 @@ contractBsc.events.Transfer({}, 'latest')
     const receipt = await web3.eth.sendTransaction(txData);
     console.log("successfully bridged")
   console.log("successfully bridged")
+}
+catch(err){
+  console.log(err)
+}
   
 }).on("connected", function(subscriptionId){
-  console.log("connected bitch2");
+  console.log("connected 2");
 });
 
 
 contractBsc.events.LiquidityAdded({}, 'latest')
 .on("data", async(event)=>{
+  try{
   console.log("Called Successfully")
   const { user, token, amount} = event.returnValues;
   console.log(event.returnValues);
@@ -109,17 +121,21 @@ contractBsc.events.LiquidityAdded({}, 'latest')
 catch(err){
     console.log("err",err)
 }
-
+}
+catch(err){
+  console.log(err)
+}
   
   
 }).on("connected", function(subscriptionId){
-  console.log("connected bitch2");
+  console.log("connected 3");
 });
 
 
 
 contractMum.events.LiquidityAdded({}, 'latest')
 .on("data", async(event)=>{
+  try{
     console.log("Called Successfully")
     const { user, token, amount } = event.returnValues;
     console.log(event.returnValues);
@@ -137,12 +153,16 @@ contractMum.events.LiquidityAdded({}, 'latest')
   catch(err){
       console.log("err",err)
   }
+}
+catch(err){
+  console.log(err)
+}
    
     
     
 })
 .on("connected", function(subscriptionId){
-    console.log("connected bitch1");
+    console.log("connected 4");
 });
 
 
